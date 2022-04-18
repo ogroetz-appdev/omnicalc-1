@@ -1,10 +1,10 @@
 <h1>Square Results</h1>
 
-<dl>
+<dl> <%# description list %>
   <dt> Number </dt>
-  <dd> 42 </dd>
+  <dd> <%= @num %> </dd>
   <dt> Square </dt>
-  <dd> @user_input ** 2 </dd>
+  <dd> <%= @num_squared %> </dd>
 </dl>
 
 <a href="/square/new" > Calculate another square </a>
