@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
   end
 
   def random_form
-
     render({ :template => "calculation_templates/random_form.html.erb" })
   end
 
@@ -21,4 +20,16 @@ class ApplicationController < ActionController::Base
     @random_number = rand(@min..@max)
     render({ :template => "calculation_templates/random_results.html.erb" })
   end
+
+  def square_root_form
+    render({ :template => "calculation_templates/square_root_form.html.erb" })
+  end
+
+  def calculate_square_root
+    @num = params.fetch("number").to_i
+    @num_square_root = (Math.sqrt(@num))
+    
+    render({ :template => "calculation_templates/square_root_results.html.erb" })
+  end
+
 end
