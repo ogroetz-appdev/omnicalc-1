@@ -9,4 +9,16 @@ class ApplicationController < ActionController::Base
     @num_squared = (@num ** 2).round(4)
     render({ :template => "calculation_templates/square_results.html.erb" })
   end
+
+  def random_form
+
+    render({ :template => "calculation_templates/random_form.html.erb" })
+  end
+
+  def calculate_random
+    @min = params.fetch("user_min").to_f
+    @max = params.fetch("user_max").to_f
+    @random_number = rand(@min..@max)
+    render({ :template => "calculation_templates/random_results.html.erb" })
+  end
 end
