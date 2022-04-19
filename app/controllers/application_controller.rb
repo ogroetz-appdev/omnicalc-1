@@ -32,17 +32,20 @@ class ApplicationController < ActionController::Base
     principal = params.fetch("user_pv").to_f
     @principal = principal.to_s(:currency)
 
-    periods = @num_years.to_i * 12
-    principal1 = principal
-    payment = periods.times do |period|
-       monthly_payment = principal1 * ( (apr * ( 1 + apr)**periods)  / ( ( 1 + apr )**periods - 1) )
-   
-       periods -= 1
-       principal1 = principal1 * (1 + apr) - monthly_payment
-    end
-    
+    # n = 48
+    num_of_periods = @num_years.to_i * 12 
+    # apr = .07
+    apr_percentage = apr / 100
+    # r = 0.005833333333333334
+    percentage_per_period = apr_percentage / 12
+    numerator =  percentage_per_period * principal
+    # p numerator
+    denominator = 1 - ((1 + percentage_per_period) ** -(num_of_periods))
+    # p denominator
+    # p numerator / denominator
+    @payment = (numerator / denominator).to_s(:currency)
 
-      render({ :template => "calculation_templates/payment_results.html.erb" })
+    render({ :template => "calculation_templates/payment_results.html.erb" })
   end
 
   def random_form
